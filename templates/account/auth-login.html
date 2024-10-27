@@ -1,0 +1,224 @@
+{% extends 'account/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load socialaccount %}
+{% block title %}Login 2{% endblock title %}
+
+{% block extra_css %}
+<!-- owl.carousel css -->
+<link rel="stylesheet" href="{% static 'libs/owl.carousel/dist/assets/owl.carousel.min.css' %}">
+
+<link rel="stylesheet" href="{% static 'libs/owl.carousel/dist/assets/owl.theme.default.min.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+<body class="auth-body-bg"
+      style="background-image: url('{% static 'images/bg_auth.jpg' %}'); background-size: cover; background-position: center; overflow: hidden;">
+<div>
+    <div class="container-fluid p-0" style="height: 100vh;">
+        <div class="row g-0">
+            <div class="col-xl-8">
+                <div class="auth-full-bg pt-lg-5 p-4 d-flex flex-column justify-content-end"
+                     style="height: 100%;">
+                    <div class="w-100" style="background-color: rgba(250, 250, 250, 0.9); height: 15%;">
+                        <div class="py-1" style="margin: 0 0.5rem;">
+                            <div class="row g-0">
+                                <div class="col-xl-2 text-center d-flex justify-content-center align-items-center">
+                                    <img src="{% static 'images/logo_ue.png' %}" style="width: 6rem;">
+                                </div>
+                                <div class="col-xl-10 d-flex align-items-center">
+                                    <p class="font-size-16">Acronym: TRACE-RICE | <b>PRIMA TRACE-RICE</b> with Grant nº
+                                        1934, (call 2019, section 1 Agrofood) is part of the PRIMA Programme supported
+                                        under
+                                        Horizon 2020, the European Union’s Framework Programme for Research and
+                                        Innovation.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end col -->
+
+            <div class="col-xl-4 badge-soft-dark">
+                <div class="auth-full-page-content p-md-5 p-4 d-flex flex-column" style="height: 100%;">
+                    <div class="w-100">
+                        <div class="d-flex flex-column h-100">
+                            <div class="my-auto mb-auto">
+                                <div>
+                                    <img class="mb-4" src="{% static 'images/logo_tr.png' %}" style="height: 5rem;"/>
+                                    <h5 style="color:#000">Welcome!</h5>
+                                    <p style="color:#FFFFFF">Sign in to continue to TRACE-RICE.</p>
+                                </div>
+                                <div class="mt-4">
+                                    <form id="loginForm">
+                                        <div class="mb-2">
+                                            <label for="username" class="form-label">Username*</label>
+                                            <input type="text" id="username" name="username" class="form-control"
+                                                   placeholder="Enter username" required>
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="password" class="form-label">Password*</label>
+                                            <input type="password" id="password" name="password" class="form-control"
+                                                   placeholder="Enter password" required>
+                                            <div class="invalid-feedback">
+                                                Password
+                                            </div>
+                                        </div>
+                                        <!--                                        <div class="mb-2">-->
+                                        <!--                                            <label for="password" class="form-label">Password*</label>-->
+                                        <!--                                            <input type="password" id="password" name="password"-->
+                                        <!--                                                   placeholder="Enter password" required>-->
+                                        <!--                                        </div>-->
+                                        <div class="mt-3 d-grid">
+                                            <button class="btn btn-primary waves-effect waves-light" type="submit"
+                                                    style="background-color:#8cb029; border: none">Log In
+                                            </button>
+                                            <!--                                            <button type="submit">Log In</button>-->
+                                        </div>
+                                    </form>
+
+                                    <div id="errorPopup"
+                                         style="display: none; background-color: rgba(0, 0, 0, 0.5); position: fixed; top: 0; left: 0; width: 100%; height: 100%; justify-content: center; align-items: center;">
+                                        <div style="background-color: #fff; padding: 20px; border-radius: 5px;">
+                                            <span id="popupMessage"></span>
+                                            <button onclick="document.getElementById('errorPopup').style.display='none';">
+                                                Close
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-1 mt-md-1 text-center">
+                                <p class="mb-0" style="color:#FFFFFF">©
+                                    <script>document.write(new Date().getFullYear())</script>
+                                    TRACE-RICE <i class="mdi mdi-heart text-danger"></i> by INIAV
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end col -->
+        </div>
+        <!-- end row -->
+    </div>
+    <!-- end container-fluid -->
+</div>
+
+
+<!-- Modal structure -->
+<div id="requestModal" class="modal"
+     style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); justify-content: center; align-items: center;">
+    <div class="modal-content"
+         style="background-color: #fff; padding: 20px; border-radius: 5px; max-width: 500px; width: 80%; text-align: center;">
+        <span class="close" style="cursor: pointer; font-size: 1.5em; font-weight: bold;">&times;</span>
+        <p style="color: #000;">Please contact <b>postmaster@trace-rice.eu</b> for a new account.</p>
+    </div>
+</div>
+
+<div id="requestModal_2" class="modal"
+     style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); justify-content: center; align-items: center;">
+    <div class="modal-content"
+         style="background-color: #fff; padding: 20px; border-radius: 5px; max-width: 500px; width: 80%; text-align: center;">
+        <span class="close" style="cursor: pointer; font-size: 1.5em; font-weight: bold;">&times;</span>
+        <p style="color: #000;">Forgot your password? Use your Decentralized Identity (DID) to securely recover your
+            account. Contact <b>postmaster@trace-rice.eu</b> for assistance.</p>
+    </div>
+</div>
+
+<!-- Popup for Error Message -->
+
+
+{% endblock content %}
+
+{% block extra_javascript %}
+<!-- owl.carousel js -->
+<script src="{% static 'libs/owl.carousel/dist/owl.carousel.min.js' %}"></script>
+
+<!-- auth-2-carousel init -->
+<script src="{% static 'js/pages/auth-2-carousel.init.js' %}"></script>
+
+<script>
+    // Get the modal
+    var modal = document.getElementById("requestModal");
+
+    // Get the link that opens the modal
+    var link = document.getElementById("requestLink");
+
+    // Get the <span> element that closes the modal
+    var closeBtn = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on the link, open the modal
+    link.onclick = function(event) {
+        event.preventDefault();  // Prevent default link action
+        modal.style.display = "flex";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    closeBtn.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+
+<script>
+    // Get the modal
+    var modal = document.getElementById("requestModal_2");
+
+    // Get the link that opens the modal
+    var link = document.getElementById("requestLink_2");
+
+    // Get the <span> element that closes the modal
+    var closeBtn = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on the link, open the modal
+    link.onclick = function(event) {
+        event.preventDefault();  // Prevent default link action
+        modal.style.display = "flex";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    closeBtn.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+
+<script>
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+        event.preventDefault();  // Prevent normal form submission
+        const formData = new FormData(this);
+
+        fetch('/login/', {  // URL should match the login view URL
+            method: 'POST',
+            body: formData,
+            headers: { 'X-CSRFToken': '{{ csrf_token }}' }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'error') {
+                document.getElementById('popupMessage').textContent = data.message;
+                document.getElementById('errorPopup').style.display = 'flex';
+            } else {
+                window.location.href = '/dashboard';  // Redirect on successful login
+            }
+        });
+    });
+</script>
+
+
+{% endblock extra_javascript %}

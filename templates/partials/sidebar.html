@@ -1,0 +1,48 @@
+{% load static %} {% block sidebar %}
+<!-- ========== Left Sidebar Start ========== -->
+<div class="vertical-menu" style="background-color:#F4F4F4">
+    <div data-simplebar class="h-100">
+
+      <!--- Sidemenu -->
+        <div id="sidebar-menu">
+          <!-- Left Menu Start -->
+            <ul class="metismenu list-unstyled" id="side-menu">
+                <li class="menu-title" style="color:#222">Menu</li>
+
+                <li>
+                    <a href="javascript: void(0);" class="waves-effect" style="color:#222">
+                        <i class="bx bx-home-circle" style="color:#8cb029"></i>
+                        <span key="t-dashboards">Home</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="javascript: void(0);" class="waves-effect">
+                        <i class="bx bx-layout" style="color:#8cb029"></i>
+                        <span href="{% url 'ecommerce-addproduct' %}" key="t-add-product" style="color:#222">Add Entry</span>
+                    </a>
+
+                </li>
+
+                <li class="menu-title mt-5" key="t-apps" style="color:#222">Apps</li>
+
+
+                <li>
+                    <a href="{% url 'filemanager' %}" class="waves-effect">
+                        <i class="bx bx-file" style="color:#8cb029"></i>
+                        <span key="t-file-manager" style="color:#222">File Manager</span>
+                    </a>
+                </li>
+
+
+            </ul>
+        </div>
+        <!-- Sidebar -->
+      <img class="mt-5" src="{% static 'images/rice_bag.png' %}" style="height:10rem; display: block; margin-left: auto; margin-right: auto;">
+      <div>
+        <p class="font-size-10 p-3" style="color:#222"><b>TRACE-RICE</b> with Grant nº 1934, (call 2019, section 1 Agrofood) is part of the PRIMA Programme supported under Horizon 2020, the European Union’s Framework Programme for Research and Innovation</p>
+      </div>
+    </div>
+</div>
+<!-- Left Sidebar End -->
+{% endblock %}

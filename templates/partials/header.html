@@ -1,0 +1,29 @@
+{% load static %}
+{% block header%}
+        <header id="page-topbar">
+            <div class="navbar-header">
+                <div class="d-flex">
+                    <!-- LOGO -->
+                    <div class="navbar-brand-box">
+                        <a href="{% url 'dashboard' %}" class="logo logo-dark">
+                            <span class="logo-sm">
+                                <img src="{% static 'images/logo_tr.png' %}" alt="" height="45">
+                            </span>
+                            <span class="logo-lg">
+                                <img src="{% static 'images/logo_tr.png' %}" alt="" height="45">
+                            </span>
+                        </a>
+
+                        <a href="{% url 'dashboard' %}" class="logo logo-light">
+                            <span class="logo-sm mt-4">
+                                <img src="{% static 'images/logo_tr.png' %}" alt="" height="45">
+                            </span>
+                            <span class="logo-lg mt-4">
+                                <img src="{% static 'images/logo_tr.png' %}" alt="" height="45">
+                            </span>
+                        </a>
+                    </div>
+
+            </div>
+        </header>
+{% endblock %}

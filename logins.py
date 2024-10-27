@@ -1,7 +1,7 @@
 import firebase_admin
 from firebase_admin import auth, credentials
 
-import src.email_body
+import email_body
 from credentials import credentials_values as cv
 
 import smtplib
@@ -36,7 +36,7 @@ def send_email(email, password):
     receiver_address = email
 
     # HTML content
-    mail_content = src.email_body.get_body(email, password)
+    mail_content = email_body.get_body(email, password)
 
     # Setup the MIME
     message = MIMEMultipart()
@@ -71,10 +71,11 @@ def generate_password():
 # ------------------------------------------------------------------------------
 # Example:
 # ------------------------------------------------------------------------------
-# user_email, user_password = 'info@materdynamics.com', generate_password()
-#
-# uid = create_user(user_email, user_password)
-# r = send_email(user_email, user_password)
-#
-# print(uid, r, sep='\n')
+user_email, user_password = 'info@materdynamics.com', generate_password()
+
+uid = create_user(user_email, user_password)
+r = send_email(user_email, user_password)
+
+print(uid, r, sep='\n')
+
 # ------------------------------------------------------------------------------
